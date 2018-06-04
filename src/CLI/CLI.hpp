@@ -1,7 +1,3 @@
-//
-// Created by c2c on 6/2/18.
-//
-
 #pragma once
 #include <iostream>
 #include <utility>
