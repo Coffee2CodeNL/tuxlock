@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(tuxlock)
+project(TuxLock)
 
 set(CMAKE_CXX_STANDARD 17)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules/")
@@ -31,7 +31,7 @@ set(tuxlock-cli_SOURCES
         src/Drive/Generic.cpp
         src/Drive/Generic.hpp
         src/CLI/CLI.cpp
-        src/CLI/CLI.hpp)
+        src/CLI/CLI.hpp src/Drive/NVMe.cpp src/Drive/NVMe.hpp)
 add_subdirectory("${CMAKE_SOURCE_DIR}/lib/backward-cpp")
 add_executable(${NAME_TUXLOCK_CLI_EXEC} ${tuxlock-cli_SOURCES})
 add_backward(${NAME_TUXLOCK_CLI_EXEC})
