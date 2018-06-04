@@ -22,15 +22,16 @@
 
 #include "spdlog/spdlog.h"
 #include "Drive/Generic.hpp"
+
 using namespace TuxLock::Drive;
 namespace TuxLock {
     class TuxLock {
     public:
         TuxLock();
 
-        std::vector<Generic *> findDrives();
+        std::vector<Generic*> findDrives();
 
-    private:
+    protected:
         std::shared_ptr<spdlog::logger> console;
     };
 }

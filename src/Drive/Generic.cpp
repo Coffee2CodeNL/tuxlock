@@ -20,10 +20,11 @@
  */
 #include "Generic.hpp"
 
-TuxLock::Drive::Generic::Generic(char *driveRef) {
+TuxLock::Drive::Generic::Generic(char* driveRef)
+{
     this->drivePath = driveRef;
     this->driveHandle = 0;
-    if (strncmp(driveRef, "/dev/nvme", 9) == 0) {
+    if (strncmp(driveRef, "/dev/nvme", 9)==0) {
 #ifdef TL_DEBUG
         this->console->debug("Is a NVMe Drive");
 #endif
@@ -36,15 +37,17 @@ TuxLock::Drive::Generic::Generic(char *driveRef) {
             this->drivePath = matchResults[0];
         }
 
-    } else if (strncmp(driveRef, "/dev/sd", 6) == 0) {
+    }
+    else if (strncmp(driveRef, "/dev/sd", 6)==0) {
 #ifdef TL_DEBUG
         this->console->debug("Is a SATA Drive");
 #endif
     }
 }
 
-int TuxLock::Drive::Generic::getHandle() {
-    if (this->driveHandle == 0) {
+int TuxLock::Drive::Generic::getHandle()
+{
+    if (this->driveHandle==0) {
 
 #ifdef TL_DEBUG
         this->console->debug("Opening {0}", this->drivePath);

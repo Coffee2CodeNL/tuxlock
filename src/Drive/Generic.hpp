@@ -30,13 +30,13 @@ namespace TuxLock {
     namespace Drive {
         class Generic {
         public:
-            explicit Generic(char *driveRef);
+            explicit Generic(char* driveRef);
 
             int getHandle();
 
-            virtual std::string getPath() {return drivePath; };
+            virtual std::string getPath() { return drivePath; };
 
-        private:
+        protected:
             std::string drivePath;
             int driveHandle;
             std::shared_ptr<spdlog::logger> console = spdlog::get("console");

@@ -20,19 +20,22 @@
  */
 #include "CLI.hpp"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[])
+{
     TuxLock::CLI cli(argc, argv);
     return 0;
 }
 
-TuxLock::CLI::CLI(int argc, char *argv[]) {
+TuxLock::CLI::CLI(int argc, char* argv[])
+{
     this->tl = new TuxLock();
     this->console = spdlog::get("console");
     this->initializeOptions();
     this->run(argc, argv);
 }
 
-void TuxLock::CLI::handleException(std::exception &exception, bool showHelp) {
+void TuxLock::CLI::handleException(std::exception& exception, bool showHelp)
+{
     this->console->warn(exception.what());
     if (showHelp) {
         std::cout << this->options.help({""}) << std::endl;
@@ -40,7 +43,8 @@ void TuxLock::CLI::handleException(std::exception &exception, bool showHelp) {
     exit(0);
 }
 
-void TuxLock::CLI::initializeOptions() {
+void TuxLock::CLI::initializeOptions()
+{
     this->options.add_options()
             ("l,lock", "Lock the drive", cxxopts::value<bool>())
             ("u,unlock", "Unlock the drive", cxxopts::value<bool>())
@@ -49,7 +53,8 @@ void TuxLock::CLI::initializeOptions() {
             ("h,help", "Print this help text");
 }
 
-void TuxLock::CLI::run(int argc, char *argv[]) {
+void TuxLock::CLI::run(int argc, char* argv[])
+{
     try {
         auto result = this->options.parse(argc, argv);
         if (result.count("help")) {
@@ -66,20 +71,20 @@ void TuxLock::CLI::run(int argc, char *argv[]) {
 
         if (result.count("lock")) {
             bool locked = result["lock"].as<bool>();
-            if (locked != 0) {
+            if (locked!=0) {
                 this->console->info("Drive {0} locked", drivePath);
             }
         }
 
         if (result.count("unlock")) {
             bool unlocked = result["unlock"].as<bool>();
-            if (unlocked != 0) {
+            if (unlocked!=0) {
                 this->console->info("Drive {0} unlocked", drivePath);
             }
         }
 
         if (result.count("findDrives")) {
-            if (0 < getuid()) {
+            if (0<getuid()) {
 #ifdef TL_DEBUG
                 this->console->debug("Running as user {0}", getuid());
 #endif
@@ -87,7 +92,7 @@ void TuxLock::CLI::run(int argc, char *argv[]) {
                 exit(0);
             }
             bool findDrives = result["findDrives"].as<bool>();
-            if (findDrives != 0) {
+            if (findDrives!=0) {
 #ifdef TL_DEBUG
                 this->console->debug("Listing drives...");
 #endif
@@ -99,10 +104,10 @@ void TuxLock::CLI::run(int argc, char *argv[]) {
             }
         }
     }
-    catch (cxxopts::OptionParseException &parseException) {
+    catch (cxxopts::OptionParseException& parseException) {
         this->handleException(parseException, true);
     }
-    catch (std::exception &exception) {
+    catch (std::exception& exception) {
         this->handleException(exception);
     }
 }

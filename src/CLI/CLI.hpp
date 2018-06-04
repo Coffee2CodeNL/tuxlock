@@ -29,7 +29,8 @@
 
 #ifdef TUXLOCK_CLI_EXEC_NAME
 
-std::string getExecName() {
+std::string getExecName()
+{
     return "tuxlock-cli";
 }
 
@@ -38,19 +39,19 @@ std::string getExecName() {
 namespace TuxLock {
     class CLI {
     public:
-        CLI(int argc, char **argv);
+        CLI(int argc, char** argv);
 
-        void run(int argc, char *argv[]);
+        void run(int argc, char* argv[]);
 
-    private:
+    protected:
         std::shared_ptr<spdlog::logger> console;
         cxxopts::Options options = cxxopts::Options(getExecName(), "SED Utility for Linux");
 
         void initializeOptions();
 
-        void handleException(std::exception &exception, bool showHelp = false);
+        void handleException(std::exception& exception, bool showHelp = false);
 
-        TuxLock *tl;
+        TuxLock* tl;
     };
 }
 
